@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import LeadForm from '../components/LeadForm';
 import BankPartners from '../components/BankPartners';
 import { Heart, Search, BedDouble, Bath, Square, MapPin, SlidersHorizontal, ArrowRight, Sparkles } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const Properties = ({ onOpenEnquiry }) => {
     const [filter, setFilter] = useState('All');
@@ -15,7 +15,7 @@ const Properties = ({ onOpenEnquiry }) => {
     useEffect(() => {
         const fetchProperties = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/properties');
+                const res = await api.get('/api/properties');
                 setProperties(res.data);
             } catch (err) {
                 console.error("Estate registry synchronization failed.");

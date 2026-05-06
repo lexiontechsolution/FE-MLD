@@ -11,12 +11,15 @@ const AdminLogin = () => {
 
     const handleLogin = (e) => {
         if (e) e.preventDefault();
+        console.log("Login Attempt:", credentials); // Debug log
+        
         // Mock auth logic
-        if (credentials.username === 'admin' && credentials.password === 'mld123') {
+        if (credentials.username === 'mld' && credentials.password === 'Milestone@01') {
             toast.success("Identity Verified. Welcome, Director.");
             localStorage.setItem('mld_admin_token', 'mock_token');
             navigate('/admin/dashboard');
         } else {
+            console.error("Auth Failed: Incorrect credentials.");
             toast.error("Security Breach: Invalid Credentials.");
         }
     };

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import LeadForm from '../components/LeadForm';
 import BankPartners from '../components/BankPartners';
 import { MapPin, ArrowUpRight, SlidersHorizontal } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const Projects = ({ onOpenEnquiry }) => {
     const [filter, setFilter] = useState('All');
@@ -14,7 +14,7 @@ const Projects = ({ onOpenEnquiry }) => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/projects');
+                const res = await api.get('/api/projects');
                 setProjects(res.data);
             } catch (err) {
                 console.error("Artifact registry communication failure.");
@@ -134,6 +134,18 @@ const Projects = ({ onOpenEnquiry }) => {
                                                     <MapPin size={12} /> {project.city}
                                                 </div>
                                                 <h3 className="text-2xl lg:text-3xl font-serif font-black tracking-tighter text-luxury-black group-hover:text-luxury-gold transition-colors duration-500">{project.title}</h3>
+                                                <div className="flex items-center gap-6 pt-2">
+                                                    <div className="flex flex-col">
+                                                        <span className="text-[8px] font-black text-gray-300 uppercase tracking-widest">Pricing</span>
+                                                        <span className="text-sm font-serif font-bold">₹{project.mldPrice || 'TBA'}</span>
+                                                    </div>
+                                                    {project.units && (
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[8px] font-black text-gray-300 uppercase tracking-widest">Units</span>
+                                                            <span className="text-sm font-serif font-bold uppercase">{project.units} Slots</span>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                             <div className="text-gray-100 font-serif italic text-4xl group-hover:text-luxury-gold/20 transition-colors duration-700">0{idx + 1}</div>
                                         </div>
