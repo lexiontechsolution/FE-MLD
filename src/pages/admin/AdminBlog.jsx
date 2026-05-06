@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { 
     Plus, Search, Trash2, Edit, X, Send, 
     BookOpen, Type, FileText, Tag, Upload, 
@@ -31,7 +31,7 @@ const AdminBlog = () => {
 
     const fetchBlogs = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/blogs');
+            const res = await api.get('/blogs');
             setBlogs(res.data);
         } catch (err) {
             toast.error("Failed to synchronizing blog registry.");
@@ -69,10 +69,10 @@ const AdminBlog = () => {
         try {
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
             if (editingBlog) {
-                await axios.put(`http://localhost:5000/api/blogs/${editingBlog._id}`, data, config);
+                await api.put(`/blogs/${editingBlog._id}`, data, config);
                 toast.success("Blog entry updated.");
             } else {
-                await axios.post('http://localhost:5000/api/blogs', data, config);
+                await api.post('/blogs', data, config);
                 toast.success("New blog published.");
             }
             setIsModalOpen(false);
@@ -93,7 +93,7 @@ const AdminBlog = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Confirm permanent erasure of this entry?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/blogs/${id}`);
+            await api.delete(`/blogs/${id}`);
             toast.success("Entry erased from registry.");
             fetchBlogs();
         } catch (err) {

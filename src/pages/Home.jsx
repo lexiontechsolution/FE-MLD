@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { ArrowRight, MapPin, Building2, Trees, Ruler, Phone, Search, ChevronRight, Globe, Shield, Zap, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import SocialSidebar from '../components/SocialSidebar';
 import PromotionModal from '../components/PromotionModal';
 import LeadForm from '../components/LeadForm';
@@ -12,14 +12,13 @@ import logo from '../assets/logo.png';
 import heroBanner from '../assets/hero.png';
 // import heroBanner from '../assets/poster1.png'; // Replace with your new poster name
 // import heroBanner from '../assets/banner-v2.png'; 
-
 const Home = ({ onOpenEnquiry }) => {
     const [residentialProjects, setResidentialProjects] = useState([]);
 
     useEffect(() => {
         const fetchSignature = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/projects');
+                const res = await api.get('/projects');
                 setResidentialProjects(res.data.slice(0, 4));
             } catch (err) {
                 console.error("Signature registry offline.");

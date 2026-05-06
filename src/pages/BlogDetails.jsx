@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, User, Calendar, Tag, Share2, Facebook, Twitter, Linkedin, MessageSquare } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const BlogDetails = () => {
     const { id } = useParams();
@@ -12,7 +12,7 @@ const BlogDetails = () => {
     useEffect(() => {
         const fetchBlog = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/blogs/${id}`);
+                const res = await api.get(`/blogs/${id}`);
                 setBlog(res.data);
             } catch (err) {
                 console.error("Story decryption failed.");

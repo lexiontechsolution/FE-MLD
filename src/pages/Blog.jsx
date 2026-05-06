@@ -3,7 +3,7 @@ import { Search, Calendar, User, ArrowRight, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const Blog = () => {
     const [blogPosts, setBlogPosts] = useState([]);
@@ -12,7 +12,7 @@ const Blog = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/blogs');
+                const res = await api.get('/blogs');
                 setBlogPosts(res.data);
             } catch (err) {
                 console.error("Failed to fetch stories.");

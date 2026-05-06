@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Phone, Mail, User, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const LeadForm = () => {
     const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ const LeadForm = () => {
 
         setStatus('loading');
         try {
-            await axios.post('/api/enquiries', {
+            await api.post('/enquiries', {
                 ...formData,
                 subject: 'Website Lead Form',
                 message: 'Customer submitted interest via bottom lead form.'

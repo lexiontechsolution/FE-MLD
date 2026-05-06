@@ -5,7 +5,7 @@ import {
     LogOut, Plus, Search, CheckCircle, Zap, BookOpen
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Enquiries from './Enquiries';
 import AdminProjects from './AdminProjects';
@@ -35,8 +35,8 @@ const AdminHome = () => {
         const fetchDashboardData = async () => {
             try {
                 const [statsRes, leadsRes] = await Promise.all([
-                    axios.get('http://localhost:5000/api/stats'),
-                    axios.get('http://localhost:5000/api/enquiries')
+                    api.get('/stats'),
+                    api.get('/enquiries')
                 ]);
                 setStats(statsRes.data);
                 setRecentLeads(leadsRes.data.slice(0, 3));

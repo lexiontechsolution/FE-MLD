@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { 
     Plus, Search, Filter, Trash2, Edit, CheckCircle, Info, 
     X, Send, Building2, MapPin, Clock, LayoutGrid, Ruler, Bed, Bath, Globe, Upload, Video
@@ -36,7 +36,7 @@ const AdminProperties = () => {
 
     const fetchProperties = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/properties');
+            const res = await api.get('/properties');
             setProperties(res.data);
         } catch (err) {
             toast.error("Failed to load inventory.");
@@ -93,10 +93,10 @@ const AdminProperties = () => {
 
         try {
             if (editingProperty) {
-                await axios.patch(`http://localhost:5000/api/properties/${editingProperty._id}`, data);
+                await api.patch(`/properties/${editingProperty._id}`, data);
                 toast.success("Estate updated.");
             } else {
-                await axios.post('http://localhost:5000/api/properties', data);
+                await api.post('/properties', data);
                 toast.success("New estate archived.");
             }
             setIsModalOpen(false);
@@ -120,7 +120,7 @@ const AdminProperties = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Permanent erasure confirmed?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/properties/${id}`);
+            await api.delete(`/properties/${id}`);
             toast.success("Estate erased.");
             fetchProperties();
         } catch (err) {

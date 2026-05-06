@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, Shield, User, Phone, Mail, MessageSquare, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 
 const PrivateEnquiryModal = ({ isOpen, onClose }) => {
@@ -18,7 +18,7 @@ const PrivateEnquiryModal = ({ isOpen, onClose }) => {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            await axios.post('http://localhost:5000/api/enquiries', formData);
+            await api.post('/enquiries', formData);
             toast.success("Reception Confirmed. Our director will contact you.");
             setFormData({ name: '', email: '', phone: '', subject: 'Private Consultation', message: '' });
             setTimeout(onClose, 2000);

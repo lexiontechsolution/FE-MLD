@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import sbiLogo from '../assets/SBI.png';
 import tmbLogo from '../assets/TMB.png';
-import sibLogo from '../assets/Sib.png';
+import sibLogo from '../assets/sib.png';
 import federalLogo from '../assets/federal abnk.png';
 
 const BankPartners = () => {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapPin, ArrowLeft, Send, Sparkles, BedDouble, Bath, Square, Shield, CheckCircle, Download, ArrowUpRight } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const PropertyDetails = ({ onOpenEnquiry }) => {
     const { id } = useParams();
@@ -12,7 +12,7 @@ const PropertyDetails = ({ onOpenEnquiry }) => {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/properties`);
+                const res = await api.get('/properties');
                 const found = res.data.find(p => p._id === id);
                 setProperty(found);
             } catch (err) {

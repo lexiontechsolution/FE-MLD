@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight, Sparkles, Building2 } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const PromotionModal = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,7 @@ const PromotionModal = () => {
     useEffect(() => {
         const fetchLatest = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/projects');
+                const res = await api.get('/projects');
                 const projects = res.data;
                 
                 // Find the newest project (first one since they are sorted by date)

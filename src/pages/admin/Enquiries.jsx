@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { Mail, Phone, Clock, Trash2, CheckCircle, ExternalLink, Filter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -16,7 +16,7 @@ const Enquiries = () => {
     const fetchEnquiries = async () => {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost:5000/api/enquiries');
+            const res = await api.get('/enquiries');
             setEnquiries(res.data);
         } catch (error) {
             console.error(error);
@@ -28,7 +28,7 @@ const Enquiries = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            await axios.patch(`http://localhost:5000/api/enquiries/${id}`, { status });
+            await api.patch(`/enquiries/${id}`, { status });
             toast.success(`Entry marked as ${status}`);
             fetchEnquiries();
         } catch (error) {
@@ -39,7 +39,7 @@ const Enquiries = () => {
     const deleteEnquiry = async (id) => {
         if (!window.confirm("Are you sure you want to purge this entry?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/enquiries/${id}`);
+            await api.delete(`/enquiries/${id}`);
             toast.success("Entry purged from registry.");
             fetchEnquiries();
         } catch (error) {

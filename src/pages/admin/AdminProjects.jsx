@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { 
     Plus, Search, Filter, Trash2, Edit, CheckCircle, Info, 
     X, Send, Building2, MapPin, Clock, LayoutGrid, Globe, Upload, Video, Image as ImageIcon
@@ -35,7 +35,7 @@ const AdminProjects = () => {
 
     const fetchProjects = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/projects');
+            const res = await api.get('/projects');
             setProjects(res.data);
         } catch (err) {
             toast.error("Failed to load artifacts.");
@@ -95,10 +95,10 @@ const AdminProjects = () => {
 
         try {
             if (editingProject) {
-                await axios.patch(`http://localhost:5000/api/projects/${editingProject._id}`, data);
+                await api.patch(`/projects/${editingProject._id}`, data);
                 toast.success("Artifact updated.");
             } else {
-                await axios.post('http://localhost:5000/api/projects', data);
+                await api.post('/projects', data);
                 toast.success("New project archived.");
             }
             setIsModalOpen(false);
@@ -132,7 +132,7 @@ const AdminProjects = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Permanent erasure confirmed?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/projects/${id}`);
+            await api.delete(`/projects/${id}`);
             toast.success("Artifact erased.");
             fetchProjects();
         } catch (err) {
