@@ -14,7 +14,7 @@ const Navbar = ({ onOpenEnquiry }) => {
         { name: 'Properties', path: '/properties' },
         { name: 'Our Story', path: '/about' },
         { name: 'Our History', path: '/history' },
-        { name: 'Latest Blog', path: '/blog' },
+        { name: 'Gallery', path: '/blog' },
         { name: 'Contact Us', path: '/contact' },
     ];
 
